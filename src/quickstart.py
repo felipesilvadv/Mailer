@@ -47,13 +47,15 @@ def setupService():
     service = build('gmail', 'v1', credentials=creds)
     response = service.users().messages().list(userId="me"
                                                ).execute()
+    myaccount = service.users().getProfile(userId="me").execute()
+
     messages = []
     if 'messages' in response:
       messages.extend(response['messages'])
     msg_id = messages[0]["id"]
     message = service.users().messages().get(userId="me", id=msg_id).execute()
     print(message["snippet"])
-    return service
+    return service, myaccount["emailAddress"]
 
     # Call the Gmail API
 

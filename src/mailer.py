@@ -9,7 +9,7 @@ else:
     from .quickstart import setupService
 
 
-def sendMail(sender, destinatario, asunto, mensaje):
-    service = setupService()
+def sendMail(destinatario, asunto, mensaje):
+    service, sender = setupService()
     msg = CreateMessage(sender, destinatario, asunto, mensaje)
     SendMessage(service, "me", msg)
